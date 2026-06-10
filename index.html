@@ -142,6 +142,69 @@
         .ed-nav-mobile-link:hover { background: var(--fog); }
         .ed-nav-mobile-link.ed-active-link { background: var(--graphite); color: #fff; }
 
+        /* ── OLED Glass Display Background ── */
+        .oled-hero-bg {
+            position: absolute; inset: 0;
+            background: #000000;
+            overflow: hidden;
+        }
+        .oled-aurora {
+            position: absolute; border-radius: 50%;
+            filter: blur(90px); mix-blend-mode: screen;
+            pointer-events: none;
+        }
+        .oled-aurora-1 {
+            width: 680px; height: 560px;
+            background: radial-gradient(ellipse at center, rgba(92,61,143,0.9) 0%, rgba(60,30,110,0.5) 45%, transparent 72%);
+            top: -140px; left: -120px;
+            animation: oled-drift1 11s ease-in-out infinite alternate;
+        }
+        .oled-aurora-2 {
+            width: 520px; height: 440px;
+            background: radial-gradient(ellipse at center, rgba(44,14,88,0.85) 0%, rgba(88,44,160,0.45) 45%, transparent 72%);
+            bottom: -80px; right: -80px;
+            animation: oled-drift2 14s ease-in-out infinite alternate;
+        }
+        .oled-aurora-3 {
+            width: 320px; height: 280px;
+            background: radial-gradient(ellipse at center, rgba(255,106,31,0.55) 0%, rgba(220,80,20,0.25) 50%, transparent 72%);
+            top: 28%; left: 42%;
+            animation: oled-drift1 8s ease-in-out infinite alternate-reverse;
+        }
+        .oled-aurora-4 {
+            width: 400px; height: 340px;
+            background: radial-gradient(ellipse at center, rgba(130,60,220,0.55) 0%, rgba(80,20,180,0.25) 50%, transparent 72%);
+            top: -60px; right: 15%;
+            animation: oled-drift2 10s ease-in-out infinite alternate;
+        }
+        @keyframes oled-drift1 {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(50px, 40px) scale(1.18); }
+        }
+        @keyframes oled-drift2 {
+            from { transform: translate(0, 0) scale(1.05); }
+            to { transform: translate(-40px, -35px) scale(0.9); }
+        }
+        .oled-scanlines {
+            position: absolute; inset: 0; pointer-events: none; z-index: 1;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.013) 3px, rgba(255,255,255,0.013) 6px);
+        }
+        .oled-glass-shimmer {
+            position: absolute; inset: 0; pointer-events: none; z-index: 1;
+            background: linear-gradient(135deg, rgba(130,70,210,0.07) 0%, transparent 40%, rgba(255,106,31,0.05) 70%, transparent 100%);
+            animation: shimmer-pan 6s ease-in-out infinite alternate;
+        }
+        @keyframes shimmer-pan {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+        .oled-grid-overlay {
+            position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0.035;
+            background-image: linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
         /* ── Editorial Hero ── */
         .ed-hero {
             position: relative; overflow: hidden;
@@ -2124,13 +2187,17 @@
                 <main className="w-full">
                     {/* ── Editorial Full-Bleed Hero ── */}
                     <section className="ed-hero">
-                        <img
-                            className="ed-hero-photo"
-                            src="https://images.unsplash.com/photo-1523240715629-67f85ba8bc3b?auto=format&fit=crop&q=80&w=1600"
-                            alt=""
-                            aria-hidden="true"
-                        />
-                        <div className="ed-hero-scrim" aria-hidden="true"></div>
+                        {/* OLED glass display background */}
+                        <div className="oled-hero-bg" aria-hidden="true">
+                            <div className="oled-aurora oled-aurora-1"></div>
+                            <div className="oled-aurora oled-aurora-2"></div>
+                            <div className="oled-aurora oled-aurora-3"></div>
+                            <div className="oled-aurora oled-aurora-4"></div>
+                            <div className="oled-scanlines"></div>
+                            <div className="oled-glass-shimmer"></div>
+                            <div className="oled-grid-overlay"></div>
+                        </div>
+                        {/* Liquid blobs on top of OLED (more vivid on black) */}
                         <div className="ed-liquid-blob ed-blob-1" aria-hidden="true"></div>
                         <div className="ed-liquid-blob ed-blob-2" aria-hidden="true"></div>
                         <div className="ed-liquid-blob ed-blob-3" aria-hidden="true"></div>
@@ -2161,76 +2228,21 @@
                         <div className="ed-stat-strip-inner">
                             <div className="ed-stat-item">
                                 <span className="ed-live-dot"></span>
-                                <span className="ed-stat-val">500+</span>
+                                <span className="ed-stat-val">70+</span>
                                 <span>students coached</span>
                             </div>
                             <div className="ed-stat-item">
                                 <span className="ed-live-dot"></span>
-                                <span className="ed-stat-val">4.9/5</span>
-                                <span>average rating</span>
+                                <span className="ed-stat-val" style={{letterSpacing:'0.05em'}}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                <span>5-star rated</span>
                             </div>
                             <div className="ed-stat-item">
                                 <span className="ed-live-dot"></span>
-                                <span className="ed-stat-val">93%</span>
-                                <span>top-choice admits</span>
+                                <span className="ed-stat-val">100%</span>
+                                <span>personalized sessions</span>
                             </div>
                         </div>
                     </div>
-
-                    {/* ── Stacking Grades ── */}
-                    <section className="ed-section-white">
-                        <div className="ed-section-inner">
-                            <div style={{display:'flex', gap:'64px', alignItems:'center', flexWrap:'wrap'}}>
-                                <div style={{flex:'1 1 280px', maxWidth:'480px'}}>
-                                    <p style={{fontFamily:'var(--font-body)', fontSize:'12px', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--apex-plum-vivid)', marginBottom:'16px'}}>Student outcomes</p>
-                                    <h2 className="ed-section-heading" style={{marginBottom:'16px'}}>Real grades. Real results.<span style={{color:'var(--apex-ember)'}}>.</span></h2>
-                                    <p className="ed-section-body" style={{marginBottom:'32px'}}>Our students don't just improve — they transform. Every session is built around measurable progress that shows up on report cards, standardized tests, and university applications.</p>
-                                    <div style={{display:'flex', flexWrap:'wrap', gap:'10px'}}>
-                                        {['A+ Average', '4.0 GPA Track', '99th Percentile', 'Top-Choice Admits'].map(tag => (
-                                            <span key={tag} style={{padding:'8px 16px', borderRadius:'9999px', border:'1.5px solid var(--apex-line)', background:'var(--apex-violet)', fontFamily:'var(--font-body)', fontSize:'13px', fontWeight:600, color:'var(--apex-plum)', letterSpacing:'-0.01em'}}>{tag}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div style={{flex:'1 1 260px', display:'flex', justifyContent:'center'}}>
-                                    <div className="paper-stack-scene">
-                                        {/* Back paper */}
-                                        <div className="grade-paper" style={{'--paper-r':'-8deg', '--paper-delay':'0.5s', zIndex:1}}>
-                                            <div>
-                                                <span className="grade-big">A+</span>
-                                                <span className="grade-subject" style={{marginTop:'6px'}}>AP Calculus BC</span>
-                                            </div>
-                                            <div>
-                                                <span className="grade-score">96 / 100 Final</span>
-                                                <span className="grade-paper-tag grade-tag-purple" style={{marginTop:'8px'}}>AP Track</span>
-                                            </div>
-                                        </div>
-                                        {/* Middle paper */}
-                                        <div className="grade-paper" style={{'--paper-r':'4deg', '--paper-delay':'0.28s', zIndex:2}}>
-                                            <div>
-                                                <span className="grade-big">4.0</span>
-                                                <span className="grade-subject" style={{marginTop:'6px'}}>Cumulative GPA</span>
-                                            </div>
-                                            <div>
-                                                <span className="grade-score">Valedictorian Track</span>
-                                                <span className="grade-paper-tag grade-tag-green" style={{marginTop:'8px'}}>&#10003; On Track</span>
-                                            </div>
-                                        </div>
-                                        {/* Front paper */}
-                                        <div className="grade-paper" style={{'--paper-r':'-2deg', '--paper-delay':'0.08s', zIndex:3}}>
-                                            <div>
-                                                <span className="grade-big">1560</span>
-                                                <span className="grade-subject" style={{marginTop:'6px'}}>SAT Score</span>
-                                            </div>
-                                            <div>
-                                                <span className="grade-score">+180 pts after 12 wks</span>
-                                                <span className="grade-paper-tag grade-tag-gold" style={{marginTop:'8px'}}>99th %ile</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
 
                     {/* ── Disciplines ── */}
                     <section className="ed-section">
