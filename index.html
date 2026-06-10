@@ -447,6 +447,248 @@
             from { transform: translate3d(-1.5%, -1%, 0) scale(1); }
             to { transform: translate3d(1.5%, 1%, 0) scale(1.03); }
         }
+        /* ── Floating ambient orbs ── */
+        .apex-orb {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            will-change: transform;
+            filter: blur(80px);
+            opacity: 0;
+            z-index: 0;
+        }
+        .apex-orb-1 {
+            width: 540px; height: 540px;
+            background: radial-gradient(circle, rgba(203,194,221,0.32) 0%, transparent 70%);
+            top: -6%; left: -5%;
+            animation: orb-entrance 2.2s ease forwards, orb-drift-1 22s ease-in-out 2.2s infinite alternate;
+        }
+        .apex-orb-2 {
+            width: 460px; height: 460px;
+            background: radial-gradient(circle, rgba(216,180,93,0.22) 0%, transparent 70%);
+            top: 18%; right: -4%;
+            animation: orb-entrance 2.2s 0.4s ease forwards, orb-drift-2 28s ease-in-out 2.6s infinite alternate;
+        }
+        .apex-orb-3 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(54,49,70,0.14) 0%, transparent 70%);
+            bottom: 8%; left: 18%;
+            animation: orb-entrance 2.2s 0.8s ease forwards, orb-drift-3 34s ease-in-out 3s infinite alternate;
+        }
+        .apex-orb-4 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(203,194,221,0.26) 0%, transparent 70%);
+            bottom: 28%; right: 12%;
+            animation: orb-entrance 2.2s 1.2s ease forwards, orb-drift-1 26s ease-in-out 3.4s infinite alternate-reverse;
+        }
+        @keyframes orb-entrance {
+            from { opacity: 0; transform: scale(0.7); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes orb-drift-1 {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(60px, 40px) scale(1.08); }
+        }
+        @keyframes orb-drift-2 {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(-50px, 60px) scale(1.06); }
+        }
+        @keyframes orb-drift-3 {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(40px, -50px) scale(1.04); }
+        }
+
+        /* ── Cursor aurora ── */
+        #cursor-aurora {
+            position: fixed;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(203,194,221,0.2) 0%, transparent 65%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity 0.6s ease;
+            will-change: left, top;
+        }
+
+        /* ── Animated gradient hero text ── */
+        .hero-gradient-text {
+            background: linear-gradient(135deg, #211c30 0%, #4a3d6e 35%, #8B7BA8 60%, #211c30 100%);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: hero-text-shimmer 7s ease infinite;
+        }
+        @keyframes hero-text-shimmer {
+            0%   { background-position: 0% center; }
+            50%  { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        /* ── Floating hero decorative shapes ── */
+        .hero-float-a, .hero-float-b, .hero-float-c {
+            position: absolute;
+            pointer-events: none;
+        }
+        .hero-float-a {
+            width: 130px; height: 130px;
+            border: 1.5px solid rgba(216,180,93,0.35);
+            border-radius: 50%;
+            top: 12%; right: 6%;
+            animation: float-rotate 16s ease-in-out infinite;
+        }
+        .hero-float-b {
+            width: 56px; height: 56px;
+            background: rgba(203,194,221,0.28);
+            border-radius: 14px;
+            top: 62%; right: 10%;
+            animation: float-bounce 10s ease-in-out infinite reverse;
+        }
+        .hero-float-c {
+            width: 9px; height: 9px;
+            background: var(--apex-gold);
+            border-radius: 50%;
+            top: 36%; right: 20%;
+            box-shadow: 0 0 20px 8px rgba(216,180,93,0.45);
+            animation: float-pulse 4.5s ease-in-out infinite;
+        }
+        .hero-float-d {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(33,28,48,0.14);
+            border-radius: 8px;
+            top: 80%; right: 30%;
+            animation: float-bounce 13s ease-in-out infinite;
+        }
+        @keyframes float-rotate {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            33%  { transform: translate(-14px, 20px) rotate(120deg); }
+            66%  { transform: translate(18px, 8px) rotate(240deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        @keyframes float-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50%       { transform: translateY(-24px) rotate(14deg); }
+        }
+        @keyframes float-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50%       { transform: scale(2.6); opacity: 0.45; }
+        }
+
+        /* ── CTA shimmer button ── */
+        .cta-shimmer { position: relative; overflow: hidden; isolation: isolate; }
+        .cta-shimmer::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 58%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
+            animation: cta-shine 3.6s ease-in-out infinite;
+            z-index: 1;
+        }
+        @keyframes cta-shine {
+            0%   { left: -100%; }
+            38%  { left: 120%; }
+            100% { left: 120%; }
+        }
+
+        /* ── Conic glow card border ── */
+        @property --card-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        .glow-border-card {
+            position: relative;
+            isolation: isolate;
+        }
+        .glow-border-card::before {
+            content: "";
+            position: absolute;
+            inset: -1.5px;
+            border-radius: inherit;
+            background: conic-gradient(
+                from var(--card-angle),
+                transparent 20%,
+                rgba(216,180,93,0.6) 40%,
+                rgba(203,194,221,0.7) 55%,
+                rgba(33,28,48,0.5) 70%,
+                transparent 80%
+            );
+            opacity: 0;
+            transition: opacity 0.42s ease;
+            z-index: -1;
+        }
+        .glow-border-card:hover::before { opacity: 1; animation: card-border-spin 3.5s linear infinite; }
+        @keyframes card-border-spin { to { --card-angle: 360deg; } }
+        .glow-border-card:hover {
+            box-shadow: 0 24px 64px rgba(33,28,48,0.14), 0 0 40px rgba(203,194,221,0.18) !important;
+        }
+
+        /* ── Enhanced scroll reveal stagger ── */
+        .scroll-reveal-stagger {
+            opacity: 0;
+            transform: translateY(42px) scale(0.97);
+            transition: opacity 0.78s cubic-bezier(.22,1,.36,1), transform 0.78s cubic-bezier(.22,1,.36,1);
+        }
+        .scroll-reveal-stagger.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+        /* ── Glassmorphism panel ── */
+        .glass-panel {
+            background: rgba(255,255,255,0.55) !important;
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.75) !important;
+            box-shadow: 0 8px 32px rgba(33,28,48,0.07);
+        }
+
+        /* ── Sparkle ring on gold dots ── */
+        .apex-gold-dot {
+            position: relative;
+            display: inline-block;
+        }
+        .apex-gold-dot::after {
+            content: "";
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px solid rgba(216,180,93,0.5);
+            animation: gold-ring-pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes gold-ring-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50%       { transform: scale(1.9); opacity: 0; }
+        }
+
+        /* ── Section ambient gradient ring ── */
+        .section-ambient { position: relative; overflow: hidden; }
+        .section-ambient::after {
+            content: "";
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 900px; height: 900px;
+            transform: translate(-50%, -50%);
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(216,180,93,0.05) 60deg,
+                transparent 120deg,
+                rgba(203,194,221,0.07) 180deg,
+                transparent 240deg,
+                rgba(216,180,93,0.05) 300deg,
+                transparent 360deg
+            );
+            animation: ambient-spin 40s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes ambient-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* ── z-index layering ── */
+        .apex-orb { z-index: 0; }
+        #cursor-aurora { z-index: 0; }
+        #root { position: relative; z-index: 2; }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -456,6 +698,9 @@
             }
             .apex-loader { display: none; }
             .reveal-up { opacity: 1; transform: none; }
+            .apex-orb, #cursor-aurora,
+            .hero-float-a, .hero-float-b, .hero-float-c, .hero-float-d,
+            .cta-shimmer::before { display: none !important; }
         }
         @media (max-width: 640px) {
             .apex-loader-panel {
@@ -561,6 +806,13 @@
     </script>
 </head>
 <body class="bg-background text-on-surface selection:bg-primary-fixed">
+    <!-- Ambient floating orbs -->
+    <div class="apex-orb apex-orb-1" aria-hidden="true"></div>
+    <div class="apex-orb apex-orb-2" aria-hidden="true"></div>
+    <div class="apex-orb apex-orb-3" aria-hidden="true"></div>
+    <div class="apex-orb apex-orb-4" aria-hidden="true"></div>
+    <!-- Cursor aurora -->
+    <div id="cursor-aurora" aria-hidden="true"></div>
     <div id="root"></div>
 
     <script type="text/babel">
@@ -915,14 +1167,18 @@
             const navigate = useNavigate();
             return (
                 <main className="w-full">
-                    <section className="premium-hero grain-overlay bg-white py-24 border-b border-border">
-                        <div className="max-w-7xl mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <section className="premium-hero grain-overlay bg-white py-24 border-b border-border" style={{position:'relative', overflow:'hidden'}}>
+                        <div className="hero-float-a" aria-hidden="true"></div>
+                        <div className="hero-float-b" aria-hidden="true"></div>
+                        <div className="hero-float-c" aria-hidden="true"></div>
+                        <div className="hero-float-d" aria-hidden="true"></div>
+                        <div className="max-w-7xl mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{position:'relative', zIndex:1}}>
                             <div className="max-w-[560px] reveal-up">
                                 <span className="font-label-caps text-label-caps text-plum uppercase tracking-widest mb-5 block">01 / Private academic direction</span>
-                                <h1 className="font-price-display text-price-display text-plum mb-6"><span className="kinetic-word">Get 1-on-1 Coaching</span> to Secure Your Top-Choice University.</h1>
+                                <h1 className="font-price-display text-price-display mb-6"><span className="kinetic-word hero-gradient-text">Get 1-on-1 Coaching</span> <span className="text-plum">to Secure Your Top-Choice University.</span></h1>
                                 <p className="font-body-lg text-body-lg text-secondary mb-10 leading-relaxed reveal-up reveal-delay-1">Achieve academic excellence with specialized tutors from the world's leading universities. We match students with mentors who simplify complexity and build confidence.</p>
                                 <div className="flex flex-wrap gap-4">
-                                    <button onClick={() => navigate('/match')} className="bg-plum text-white font-button-text text-button-text px-8 py-4 rounded-lg hover:opacity-90 transition-all magnetic-button">
+                                    <button onClick={() => navigate('/match')} className="bg-plum text-white font-button-text text-button-text px-8 py-4 rounded-lg hover:opacity-90 transition-all magnetic-button cta-shimmer">
                                         Get My 4.0 Plan
                                     </button>
                                 </div>
@@ -940,17 +1196,17 @@
                         <div className="max-w-7xl mx-auto px-gutter text-center">
                             <h2 className="font-section-heading text-section-heading text-plum mb-12">Our Specialized Disciplines</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card reveal-up">
+                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card glow-border-card scroll-reveal-stagger glass-panel" style={{transitionDelay:'0ms'}}>
                                     <span className="material-symbols-outlined text-4xl text-plum mb-4">science</span>
                                     <h3 className="font-card-title text-card-title text-plum mb-2">STEM</h3>
                                     <p className="text-secondary text-body-sm">Algebra, Calculus & Physics mastery with custom concept-repair.</p>
                                 </div>
-                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card reveal-up reveal-delay-1">
+                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card glow-border-card scroll-reveal-stagger glass-panel" style={{transitionDelay:'120ms'}}>
                                     <span className="material-symbols-outlined text-4xl text-plum mb-4">history_edu</span>
                                     <h3 className="font-card-title text-card-title text-plum mb-2">Humanities</h3>
                                     <p className="text-secondary text-body-sm">Transform essay writing into a competitive advantage for admissions.</p>
                                 </div>
-                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card reveal-up reveal-delay-2">
+                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card glow-border-card scroll-reveal-stagger glass-panel" style={{transitionDelay:'240ms'}}>
                                     <span className="material-symbols-outlined text-4xl text-plum mb-4">assignment_turned_in</span>
                                     <h3 className="font-card-title text-card-title text-plum mb-2">Test Prep</h3>
                                     <p className="text-secondary text-body-sm">Strategic SAT/ACT patterns and pacing for maximum score improvement.</p>
@@ -2591,5 +2847,99 @@
         const root = createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
+
+    <script>
+    /* ── Cursor Aurora ── */
+    (function() {
+        var aurora = document.getElementById('cursor-aurora');
+        if (!aurora) return;
+        var mx = window.innerWidth / 2, my = window.innerHeight / 2, cx = mx, cy = my;
+        document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        (function tick() {
+            cx = lerp(cx, mx, 0.06); cy = lerp(cy, my, 0.06);
+            aurora.style.left = cx + 'px'; aurora.style.top = cy + 'px';
+            requestAnimationFrame(tick);
+        })();
+        document.addEventListener('mouseleave', function() { aurora.style.opacity = '0'; });
+        document.addEventListener('mouseenter', function() { aurora.style.opacity = '1'; });
+    })();
+
+    /* ── Scroll Reveal with stagger ── */
+    (function() {
+        function bindReveal() {
+            var els = document.querySelectorAll('.scroll-reveal:not([data-io]), .scroll-reveal-stagger:not([data-io])');
+            if (!els.length) return;
+            var io = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var el = entry.target;
+                        var delay = el.style.transitionDelay || '0ms';
+                        el.style.transitionDelay = delay;
+                        el.classList.add('is-visible');
+                        io.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            els.forEach(function(el) { el.setAttribute('data-io', '1'); io.observe(el); });
+        }
+        bindReveal();
+        var mo = new MutationObserver(bindReveal);
+        var root = document.getElementById('root');
+        if (root) mo.observe(root, { childList: true, subtree: true });
+    })();
+
+    /* ── Magnetic button 3D tilt ── */
+    (function() {
+        function onMove(e) {
+            var r = this.getBoundingClientRect();
+            var dx = (e.clientX - (r.left + r.width/2)) / (r.width/2);
+            var dy = (e.clientY - (r.top + r.height/2)) / (r.height/2);
+            this.style.transform = 'perspective(400px) rotateX('+(-dy*7)+'deg) rotateY('+(dx*7)+'deg) translateZ(6px)';
+        }
+        function onLeave() { this.style.transform = ''; }
+        function bind() {
+            document.querySelectorAll('.magnetic-button:not([data-tilt])').forEach(function(b) {
+                b.setAttribute('data-tilt', '1');
+                b.addEventListener('mousemove', onMove);
+                b.addEventListener('mouseleave', onLeave);
+            });
+        }
+        bind();
+        var mo = new MutationObserver(bind);
+        var root = document.getElementById('root');
+        if (root) mo.observe(root, { childList: true, subtree: true });
+    })();
+
+    /* ── Stats counter ── */
+    (function() {
+        function count(el) {
+            var target = parseFloat(el.dataset.target);
+            if (isNaN(target)) return;
+            var suffix = el.dataset.suffix || '';
+            var dur = 1800, t0 = null;
+            (function step(ts) {
+                if (!t0) t0 = ts;
+                var p = Math.min((ts - t0) / dur, 1);
+                var ease = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * ease) + suffix;
+                if (p < 1) requestAnimationFrame(step);
+            })(performance.now());
+        }
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { count(e.target); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.6 });
+        function bind() {
+            document.querySelectorAll('[data-target]:not([data-counted])').forEach(function(el) {
+                el.setAttribute('data-counted', '1'); io.observe(el);
+            });
+        }
+        bind();
+        var mo = new MutationObserver(bind);
+        var root = document.getElementById('root');
+        if (root) mo.observe(root, { childList: true, subtree: true });
+    })();
+    </script>
 </body>
->>>>>>> feature/deploy-legacy-dist-and-update-stripe
