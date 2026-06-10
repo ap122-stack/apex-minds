@@ -20,6 +20,10 @@ const ParentDashboard  = lazy(() => import('./pages/ParentDashboard'))
 const TutorSessionsPage = lazy(() => import('./pages/TutorSessionsPage'))
 const TutorEarningsPage = lazy(() => import('./pages/TutorEarningsPage'))
 
+function AuthCallback() {
+  return <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }}>Processing auth…</div>
+}
+
 function PageLoader() {
   return (
     <div style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', background: 'var(--cream)' }}>
@@ -62,6 +66,7 @@ export default function App() {
           <Route path="/about"      element={<AboutPage />} />
           <Route path="/login"      element={<LoginPage />} />
           <Route path="/parent-login" element={<ParentLoginPage />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
 
           {/* Auth: parent */}
           <Route path="/parent-dashboard" element={
