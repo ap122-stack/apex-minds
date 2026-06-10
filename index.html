@@ -44,15 +44,247 @@
 
     <style>
         :root {
-            --apex-plum: #211c30;
-            --apex-plum-soft: #363146;
-            --apex-ivory: #fbfaf6;
-            --apex-violet: #f3efff;
-            --apex-gold: #d8b45d;
-            --apex-ink: #17151d;
-            --apex-line: rgba(33, 28, 48, 0.14);
+            /* ── Legacy (keep for component compat) ── */
+            --apex-plum: #050505;
+            --apex-plum-soft: #171717;
+            --apex-ivory: #e4dfd9;
+            --apex-violet: #f0ede8;
+            --apex-gold: #ff6a1f;
+            --apex-ink: #050505;
+            --apex-line: rgba(0,0,0,0.12);
             --font-display: 'Cabinet Grotesk', 'Satoshi', sans-serif;
             --font-body: 'Satoshi', Arial, sans-serif;
+            /* ── Editorial palette ── */
+            --cream: #e4dfd9;
+            --ink: #050505;
+            --ink-pure: #000000;
+            --slate: #737373;
+            --stone: #999694;
+            --ember: #ff6a1f;
+            --graphite: #171717;
+            --fog: #c7c7c7;
+            --iron: #4b4b4b;
+            --pewter: #666666;
+            --shadow-card: rgba(0,0,0,0.07) 0px 6px 27px;
+            --r-card: 20px;
+            --r-btn: 8px;
+            --r-input: 12px;
+            --r-pill: 9999px;
+        }
+
+        /* ── Editorial global reset ── */
+        body {
+            background: var(--cream) !important;
+            color: var(--ink) !important;
+        }
+
+        /* ── Editorial Nav ── */
+        .ed-nav {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(228,223,217,0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--fog);
+        }
+        .ed-nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 32px; height: 64px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        .ed-nav-logo {
+            font-family: var(--font-display);
+            font-size: 20px; font-weight: 500; color: var(--ink);
+            letter-spacing: -0.02em; cursor: pointer; white-space: nowrap;
+            text-decoration: none;
+        }
+        .ed-nav-toggle {
+            display: flex; align-items: center;
+            background: rgba(199,199,199,0.25);
+            border: 1px solid var(--fog);
+            border-radius: 9999px; padding: 3px; gap: 2px;
+        }
+        .ed-nav-toggle-btn {
+            padding: 7px 20px; border-radius: 9999px;
+            font-family: var(--font-body); font-size: 14px; font-weight: 500;
+            color: var(--ink); background: transparent; border: none;
+            cursor: pointer; transition: background 0.18s, box-shadow 0.18s;
+            letter-spacing: -0.02em; white-space: nowrap;
+        }
+        .ed-nav-toggle-btn.ed-active {
+            background: #fff;
+            box-shadow: rgba(0,0,0,0.07) 0px 4px 18px;
+        }
+        .ed-nav-actions { display: flex; align-items: center; gap: 6px; }
+        .ed-ghost-btn {
+            padding: 9px 14px; font-family: var(--font-body); font-size: 14px;
+            font-weight: 500; color: var(--ink); text-decoration: none;
+            background: none; border: none; cursor: pointer;
+            letter-spacing: -0.02em; transition: opacity 0.15s; border-radius: 8px;
+        }
+        .ed-ghost-btn:hover { opacity: 0.55; }
+        .ed-filled-btn {
+            padding: 9px 18px; background: var(--graphite); color: #fff;
+            font-family: var(--font-body); font-size: 14px; font-weight: 500;
+            border-radius: 8px; border: none; cursor: pointer;
+            letter-spacing: -0.02em; transition: opacity 0.18s; white-space: nowrap;
+        }
+        .ed-filled-btn:hover { opacity: 0.82; }
+        .ed-nav-mobile-menu {
+            background: #fff; border-top: 1px solid var(--fog);
+            padding: 16px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+        }
+        .ed-nav-mobile-link {
+            padding: 12px 14px; border-radius: 10px;
+            font-family: var(--font-body); font-size: 14px; font-weight: 500;
+            color: var(--ink); text-decoration: none; background: var(--cream);
+            letter-spacing: -0.02em; transition: background 0.15s;
+        }
+        .ed-nav-mobile-link:hover { background: var(--fog); }
+        .ed-nav-mobile-link.ed-active-link { background: var(--graphite); color: #fff; }
+
+        /* ── Editorial Hero ── */
+        .ed-hero {
+            position: relative; overflow: hidden;
+            min-height: 80vh; display: flex; align-items: center; justify-content: center;
+        }
+        .ed-hero-photo {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center 25%;
+            filter: brightness(0.75) contrast(1.08) saturate(0.85);
+        }
+        .ed-hero-scrim {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(23,23,23,0.48) 0%, rgba(23,23,23,0.74) 100%);
+        }
+        .ed-hero-content {
+            position: relative; z-index: 2;
+            max-width: 860px; margin: 0 auto; padding: 80px 32px;
+            text-align: center;
+        }
+        .ed-live-indicator {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-body); font-size: 13px; font-weight: 500;
+            color: rgba(255,255,255,0.7); letter-spacing: 0.04em; text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .ed-live-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--ember); flex-shrink: 0;
+            box-shadow: 0 0 8px var(--ember);
+        }
+        .ed-hero-display {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 6.5vw, 72px);
+            font-weight: 500; color: #fff;
+            line-height: 1.08; letter-spacing: -0.025em;
+            margin-bottom: 20px;
+        }
+        .ed-ember-period { color: var(--ember); }
+        .ed-hero-tagline {
+            font-family: var(--font-body); font-size: 18px; font-weight: 400;
+            color: rgba(255,255,255,0.68); line-height: 1.55; letter-spacing: -0.02em;
+            max-width: 520px; margin: 0 auto 40px;
+        }
+        .ed-hero-actions {
+            display: flex; align-items: center; justify-content: center;
+            gap: 12px; flex-wrap: wrap;
+        }
+        .ed-hero-primary-btn {
+            padding: 14px 32px; background: #fff; color: var(--graphite);
+            font-family: var(--font-body); font-size: 15px; font-weight: 600;
+            border-radius: 8px; border: none; cursor: pointer;
+            letter-spacing: -0.02em; transition: all 0.18s;
+            box-shadow: rgba(0,0,0,0.18) 0px 6px 27px;
+        }
+        .ed-hero-primary-btn:hover { background: var(--cream); transform: translateY(-1px); }
+        .ed-hero-ghost-btn {
+            padding: 13px 24px; color: rgba(255,255,255,0.82);
+            font-family: var(--font-body); font-size: 15px; font-weight: 500;
+            letter-spacing: -0.02em; background: none;
+            border: 1px solid rgba(255,255,255,0.30); border-radius: 8px;
+            cursor: pointer; transition: all 0.18s; text-decoration: none;
+        }
+        .ed-hero-ghost-btn:hover { border-color: rgba(255,255,255,0.65); color: #fff; }
+
+        /* ── Editorial Sections ── */
+        .ed-section { background: var(--cream); }
+        .ed-section-white { background: #fff; }
+        .ed-section-inner {
+            max-width: 1200px; margin: 0 auto; padding: 72px 32px;
+        }
+        .ed-section-heading {
+            font-family: var(--font-display);
+            font-size: 28px; font-weight: 500; color: var(--ink);
+            line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 12px;
+        }
+        .ed-section-body {
+            font-family: var(--font-body); font-size: 16px; font-weight: 400;
+            color: var(--slate); line-height: 1.55; letter-spacing: -0.02em;
+        }
+
+        /* ── Editorial Card ── */
+        .ed-card {
+            background: #fff; border-radius: 20px; padding: 32px;
+            box-shadow: var(--shadow-card);
+        }
+        .ed-card-heading {
+            font-family: var(--font-display); font-size: 23px; font-weight: 500;
+            color: var(--ink); line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 10px;
+        }
+        .ed-card-body {
+            font-family: var(--font-body); font-size: 16px; font-weight: 400;
+            color: var(--slate); line-height: 1.5; letter-spacing: -0.02em;
+        }
+
+        /* ── Editorial Buttons ── */
+        .ed-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 11px 22px; background: var(--graphite); color: #fff;
+            font-family: var(--font-body); font-size: 15px; font-weight: 500;
+            border-radius: 8px; border: none; cursor: pointer;
+            letter-spacing: -0.02em; text-decoration: none;
+            transition: opacity 0.18s; white-space: nowrap;
+        }
+        .ed-btn:hover { opacity: 0.82; }
+        .ed-btn-outline {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 20px; background: transparent; color: var(--ink);
+            font-family: var(--font-body); font-size: 15px; font-weight: 500;
+            border-radius: 8px; border: 1px solid var(--fog); cursor: pointer;
+            letter-spacing: -0.02em; text-decoration: none; transition: border-color 0.18s, background 0.18s;
+        }
+        .ed-btn-outline:hover { border-color: var(--iron); background: rgba(228,223,217,0.5); }
+
+        /* ── Editorial Tag/Chip ── */
+        .ed-tag {
+            display: inline-flex; align-items: center;
+            padding: 8px 16px; background: #fff; border: 1px solid var(--fog);
+            border-radius: 9999px; font-family: var(--font-body); font-size: 14px;
+            font-weight: 500; color: var(--ink); letter-spacing: -0.02em;
+            cursor: pointer; transition: border-color 0.18s, background 0.18s;
+            text-decoration: none;
+        }
+        .ed-tag:hover { border-color: var(--iron); }
+        .ed-tag.ed-active { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+        /* ── Stat strip ── */
+        .ed-stat-strip {
+            background: var(--graphite); color: #fff;
+            padding: 18px 32px;
+        }
+        .ed-stat-strip-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            gap: 48px; flex-wrap: wrap;
+        }
+        .ed-stat-item {
+            display: flex; align-items: center; gap: 10px;
+            font-family: var(--font-body); font-size: 14px; font-weight: 500;
+            letter-spacing: -0.02em; color: rgba(255,255,255,0.82);
+        }
+        .ed-stat-val {
+            font-family: var(--font-display); font-size: 22px; font-weight: 500;
+            color: #fff; letter-spacing: -0.02em;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -1030,14 +1262,18 @@
                 "error": "#ba1a1a",
                 "plum": "#363146",
                 "on-primary": "#ffffff",
-                "background": "#f9f9fa",
+                "background": "#e4dfd9",
+                "ember": "#ff6a1f",
+                "graphite": "#171717",
+                "cream": "#e4dfd9",
+                "fog-color": "#c7c7c7",
                 "on-surface-variant": "#48464c",
                 "on-primary-fixed": "#1d192c",
                 "outline": "#79767d",
                 "surface-variant": "#e2e2e3",
                 "on-tertiary-container": "#43ae80",
                 "on-error": "#ffffff",
-                "surface": "#f9f9fa",
+                "surface": "#e4dfd9",
                 "tertiary-fixed": "#8df7c3",
                 "secondary": "#5e5e64",
                 "on-secondary-fixed-variant": "#46464d",
@@ -1089,7 +1325,7 @@
         }
     </script>
 </head>
-<body class="bg-background text-on-surface selection:bg-primary-fixed">
+<body class="text-on-surface selection:bg-primary-fixed" style="background:#e4dfd9;">
     <!-- Ambient floating orbs -->
     <div class="apex-orb apex-orb-1" aria-hidden="true"></div>
     <div class="apex-orb apex-orb-2" aria-hidden="true"></div>
@@ -1461,10 +1697,10 @@
                                 tabIndex={day && hasAvail(day) ? 0 : undefined}
                             >
                                 {day && (
-                                    <>
+                                    <React.Fragment>
                                         <span className="apex-cal-day-num">{day}</span>
-                                        {hasAvail(day) && <span className="apex-cal-dot" />}
-                                    </>
+                                        {hasAvail(day) && <span className="apex-cal-dot"></span>}
+                                    </React.Fragment>
                                 )}
                             </div>
                         ))}
@@ -1576,60 +1812,62 @@
             };
 
             return (
-                <nav className="sticky top-0 z-50 w-full bg-surface/90 backdrop-blur-xl border-b border-border shadow-sm">
-                    <div className="flex justify-between items-center w-full px-4 sm:px-8 h-20">
-                        <div className="font-section-heading text-[22px] sm:text-section-heading font-bold text-plum cursor-pointer whitespace-nowrap" onClick={() => navigate('/')}>Apex Minds</div>
-                        <div className="hidden xl:flex items-center gap-6">
-                            {navLinks.map(link => (
-                                <Link 
-                                    key={link.path}
-                                    to={link.path} 
-                                    className={`font-button-text text-button-text transition-colors ${location.pathname === link.path ? 'text-plum font-bold border-b-2 border-plum pb-1' : 'text-secondary hover:text-plum'}`}
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
+                <nav className="ed-nav">
+                    <div className="ed-nav-inner">
+                        {/* Logo */}
+                        <div className="ed-nav-logo" onClick={() => navigate('/')}>Apex Minds.</div>
+
+                        {/* Center pill toggle */}
+                        <div className="hidden md:flex ed-nav-toggle">
+                            <button
+                                className={'ed-nav-toggle-btn' + (location.pathname !== '/admissions' ? ' ed-active' : '')}
+                                onClick={() => navigate('/tutors')}
+                            >
+                                Tutoring
+                            </button>
+                            <button
+                                className={'ed-nav-toggle-btn' + (location.pathname === '/admissions' ? ' ed-active' : '')}
+                                onClick={() => navigate('/admissions')}
+                            >
+                                Admissions
+                            </button>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <button
-                                onClick={() => navigate('/login')}
-                                className="hidden sm:inline-flex bg-black text-white px-3 py-2 rounded-lg font-button-text text-[13px] hover:bg-plum transition-colors magnetic-button"
-                            >
-                                Login
-                            </button>
-                            <div 
+                        {/* Right actions */}
+                        <div className="ed-nav-actions">
+                            <Link to="/login" className="hidden sm:block ed-ghost-btn">Sign in</Link>
+                            <button onClick={() => navigate('/match')} className="ed-filled-btn">Get Started</button>
+                            <div
                                 onClick={handleCartClick}
-                                className={`flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer transition-all ${cart.length > 0 ? 'border-plum bg-plum/5' : 'border-border text-muted-text hover:border-plum'}`}
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: '6px',
+                                    padding: '8px 12px', border: '1px solid var(--fog)',
+                                    borderRadius: '8px', cursor: 'pointer',
+                                    background: cart.length > 0 ? '#fff' : 'transparent',
+                                    transition: 'background 0.15s',
+                                }}
                             >
-                                <span className="material-symbols-outlined">shopping_cart</span>
-                                <span className="font-button-text text-[14px] min-w-[10px] text-center">
-                                    {cart.length}
-                                </span>
+                                <span className="material-symbols-outlined" style={{fontSize:'18px', color:'var(--ink)'}}>shopping_cart</span>
+                                <span style={{fontFamily:'var(--font-body)', fontSize:'13px', fontWeight:600, color:'var(--ink)', minWidth:'12px', textAlign:'center'}}>{cart.length}</span>
                                 {cart.length > 0 && (
-                                    <span className="flex h-2 w-2 rounded-full bg-plum animate-pulse"></span>
+                                    <span style={{width:'6px', height:'6px', borderRadius:'50%', background:'var(--ember)', display:'block'}}></span>
                                 )}
                             </div>
-                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="xl:hidden border border-border rounded-lg p-2 text-plum">
-                                <span className="material-symbols-outlined">{isMenuOpen ? 'close' : 'menu'}</span>
+                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden" style={{background:'none', border:'1px solid var(--fog)', borderRadius:'8px', padding:'8px', cursor:'pointer', color:'var(--ink)'}}>
+                                <span className="material-symbols-outlined" style={{fontSize:'20px'}}>{isMenuOpen ? 'close' : 'menu'}</span>
                             </button>
                         </div>
                     </div>
                     {isMenuOpen && (
-                        <div className="xl:hidden px-4 sm:px-8 pb-4 bg-white border-t border-border grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            <Link
-                                to="/login"
-                                onClick={() => setIsMenuOpen(false)}
-                                className="px-3 py-3 rounded-lg border border-black bg-black text-white text-sm font-button-text"
-                            >
-                                Login
-                            </Link>
+                        <div className="ed-nav-mobile-menu">
+                            <Link to="/login" onClick={() => setIsMenuOpen(false)} className="ed-nav-mobile-link">Sign in</Link>
+                            <button onClick={() => { navigate('/match'); setIsMenuOpen(false); }} className="ed-nav-mobile-link" style={{textAlign:'left', background:'var(--graphite)', color:'#fff', border:'none', cursor:'pointer'}}>Get Started</button>
                             {navLinks.map(link => (
                                 <Link
                                     key={link.path}
                                     to={link.path}
                                     onClick={() => setIsMenuOpen(false)}
-                                    className={`px-3 py-3 rounded-lg border text-sm font-button-text ${location.pathname === link.path ? 'border-plum bg-violet-panel text-plum' : 'border-border text-secondary'}`}
+                                    className={'ed-nav-mobile-link' + (location.pathname === link.path ? ' ed-active-link' : '')}
                                 >
                                     {link.name}
                                 </Link>
@@ -1700,52 +1938,110 @@
             const navigate = useNavigate();
             return (
                 <main className="w-full">
-                    <section className="premium-hero grain-overlay shader-hero py-24 border-b border-border" style={{position:'relative', overflow:'hidden'}}>
-                        <WebGLHero />
-                        <div className="hero-float-a" aria-hidden="true"></div>
-                        <div className="hero-float-b" aria-hidden="true"></div>
-                        <div className="hero-float-c" aria-hidden="true"></div>
-                        <div className="hero-float-d" aria-hidden="true"></div>
-                        <div className="max-w-7xl mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{position:'relative', zIndex:2}}>
-                            <div className="max-w-[560px] reveal-up">
-                                <span className="font-label-caps text-label-caps uppercase tracking-widest mb-5 block" style={{color:'rgba(203,194,221,0.75)'}}>01 / Private academic direction</span>
-                                <h1 className="font-price-display text-price-display mb-6"><span className="kinetic-word hero-gradient-text">Get 1-on-1 Coaching</span> <span className="text-plum"> to Secure Your Top-Choice University.</span></h1>
-                                <p className="font-body-lg text-body-lg mb-10 leading-relaxed reveal-up reveal-delay-1" style={{color:'rgba(251,250,246,0.65)'}}>Achieve academic excellence with specialized tutors from the world's leading universities. We match students with mentors who simplify complexity and build confidence.</p>
-                                <div className="flex flex-wrap gap-4">
-                                    <button onClick={() => navigate('/match')} className="font-button-text text-button-text px-8 py-4 rounded-lg transition-all magnetic-button shader-cta">
-                                        Get My 4.0 Plan
-                                    </button>
-                                </div>
+                    {/* ── Editorial Full-Bleed Hero ── */}
+                    <section className="ed-hero">
+                        <img
+                            className="ed-hero-photo"
+                            src="https://images.unsplash.com/photo-1523240715629-67f85ba8bc3b?auto=format&fit=crop&q=80&w=1600"
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <div className="ed-hero-scrim" aria-hidden="true"></div>
+                        <div className="ed-hero-content">
+                            <div className="ed-live-indicator">
+                                <span className="ed-live-dot"></span>
+                                Enrolling now — limited spots
                             </div>
-                            <div className="hidden md:block">
-                                <img className="rounded-xl w-full h-[400px] object-cover image-rise" style={{boxShadow:'0 8px 48px rgba(0,0,0,0.45)', border:'1px solid rgba(203,194,221,0.18)'}} alt="Elite tutoring" src="https://images.unsplash.com/photo-1523240715629-67f85ba8bc3b?auto=format&fit=crop&q=80&w=1200" />
+                            <h1 className="ed-hero-display">
+                                Get 1-on-1 Coaching<span className="ed-ember-period">.</span>
+                            </h1>
+                            <p className="ed-hero-tagline">
+                                Achieve academic excellence with specialized tutors from the world's leading universities. We match students with mentors who build confidence and deliver results.
+                            </p>
+                            <div className="ed-hero-actions">
+                                <button className="ed-hero-primary-btn" onClick={() => navigate('/match')}>
+                                    Get My 4.0 Plan
+                                </button>
+                                <button className="ed-hero-ghost-btn" onClick={() => navigate('/tutors')}>
+                                    Browse Tutors &#8594;
+                                </button>
                             </div>
                         </div>
                     </section>
-                    <div className="kinetic-strip" aria-hidden="true">
-                        <span>Match smarter Book faster Master harder Apply cleaner Match smarter Book faster Master harder Apply cleaner</span>
-                        <span>Match smarter Book faster Master harder Apply cleaner Match smarter Book faster Master harder Apply cleaner</span>
+
+                    {/* ── Stats Strip ── */}
+                    <div className="ed-stat-strip">
+                        <div className="ed-stat-strip-inner">
+                            <div className="ed-stat-item">
+                                <span className="ed-live-dot"></span>
+                                <span className="ed-stat-val">500+</span>
+                                <span>students coached</span>
+                            </div>
+                            <div className="ed-stat-item">
+                                <span className="ed-live-dot"></span>
+                                <span className="ed-stat-val">4.9/5</span>
+                                <span>average rating</span>
+                            </div>
+                            <div className="ed-stat-item">
+                                <span className="ed-live-dot"></span>
+                                <span className="ed-stat-val">93%</span>
+                                <span>top-choice admits</span>
+                            </div>
+                        </div>
                     </div>
-                    <section className="py-16 bg-white">
-                        <div className="max-w-7xl mx-auto px-gutter text-center">
-                            <h2 className="font-section-heading text-section-heading text-plum mb-12">Our Specialized Disciplines</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card glow-border-card scroll-reveal-stagger glass-panel" style={{transitionDelay:'0ms'}}>
-                                    <span className="material-symbols-outlined text-4xl text-plum mb-4">science</span>
-                                    <h3 className="font-card-title text-card-title text-plum mb-2">STEM</h3>
-                                    <p className="text-secondary text-body-sm">Algebra, Calculus & Physics mastery with custom concept-repair.</p>
+
+                    {/* ── Disciplines ── */}
+                    <section className="ed-section">
+                        <div className="ed-section-inner">
+                            <div style={{maxWidth:'520px', marginBottom:'48px'}}>
+                                <h2 className="ed-section-heading">Specialized academic disciplines<span className="ed-ember-period">.</span></h2>
+                                <p className="ed-section-body" style={{marginTop:'12px'}}>Each tutor is carefully matched to a specific domain — so you get genuine expertise, not a generalist.</p>
+                            </div>
+                            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'24px'}}>
+                                <div className="ed-card scroll-reveal-stagger" style={{transitionDelay:'0ms'}}>
+                                    <div style={{width:'44px', height:'44px', borderRadius:'10px', background:'var(--graphite)', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:'20px'}}>
+                                        <span className="material-symbols-outlined" style={{color:'#fff', fontSize:'22px'}}>science</span>
+                                    </div>
+                                    <h3 className="ed-card-heading">STEM</h3>
+                                    <p className="ed-card-body">Algebra, Calculus &amp; Physics mastery with custom concept-repair for AP and college-level courses.</p>
+                                    <button onClick={() => navigate('/tutors')} className="ed-btn" style={{marginTop:'24px', fontSize:'13px', padding:'9px 18px'}}>Find STEM tutors</button>
                                 </div>
-                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card glow-border-card scroll-reveal-stagger glass-panel" style={{transitionDelay:'120ms'}}>
-                                    <span className="material-symbols-outlined text-4xl text-plum mb-4">history_edu</span>
-                                    <h3 className="font-card-title text-card-title text-plum mb-2">Humanities</h3>
-                                    <p className="text-secondary text-body-sm">Transform essay writing into a competitive advantage for admissions.</p>
+                                <div className="ed-card scroll-reveal-stagger" style={{transitionDelay:'80ms'}}>
+                                    <div style={{width:'44px', height:'44px', borderRadius:'10px', background:'var(--graphite)', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:'20px'}}>
+                                        <span className="material-symbols-outlined" style={{color:'#fff', fontSize:'22px'}}>history_edu</span>
+                                    </div>
+                                    <h3 className="ed-card-heading">Humanities</h3>
+                                    <p className="ed-card-body">Transform essay writing into a competitive admissions advantage. AP History, English, and more.</p>
+                                    <button onClick={() => navigate('/tutors')} className="ed-btn" style={{marginTop:'24px', fontSize:'13px', padding:'9px 18px'}}>Find Humanities tutors</button>
                                 </div>
-                                <div className="p-8 border border-border rounded-xl hover:border-plum transition-all motion-card glow-border-card scroll-reveal-stagger glass-panel" style={{transitionDelay:'240ms'}}>
-                                    <span className="material-symbols-outlined text-4xl text-plum mb-4">assignment_turned_in</span>
-                                    <h3 className="font-card-title text-card-title text-plum mb-2">Test Prep</h3>
-                                    <p className="text-secondary text-body-sm">Strategic SAT/ACT patterns and pacing for maximum score improvement.</p>
+                                <div className="ed-card scroll-reveal-stagger" style={{transitionDelay:'160ms'}}>
+                                    <div style={{width:'44px', height:'44px', borderRadius:'10px', background:'var(--graphite)', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:'20px'}}>
+                                        <span className="material-symbols-outlined" style={{color:'#fff', fontSize:'22px'}}>assignment_turned_in</span>
+                                    </div>
+                                    <h3 className="ed-card-heading">Test Prep</h3>
+                                    <p className="ed-card-body">Strategic SAT/ACT patterns and pacing. Average student gains 180+ points over 12 weeks.</p>
+                                    <button onClick={() => navigate('/tutors')} className="ed-btn" style={{marginTop:'24px', fontSize:'13px', padding:'9px 18px'}}>Find Test Prep tutors</button>
                                 </div>
                             </div>
+                        </div>
+                    </section>
+
+                    {/* ── CTA band ── */}
+                    <section style={{position:'relative', overflow:'hidden', minHeight:'340px', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--graphite)'}}>
+                        <img
+                            src="https://images.unsplash.com/photo-1562564055-71e051d33c19?auto=format&fit=crop&q=80&w=1600"
+                            alt=""
+                            aria-hidden="true"
+                            style={{position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', opacity:0.25, filter:'grayscale(0.4)'}}
+                        />
+                        <div style={{position:'relative', zIndex:2, textAlign:'center', padding:'64px 32px', maxWidth:'600px', margin:'0 auto'}}>
+                            <p style={{fontFamily:'var(--font-body)', fontSize:'12px', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'rgba(255,255,255,0.55)', marginBottom:'20px'}}>Admissions Consulting</p>
+                            <h2 style={{fontFamily:'var(--font-display)', fontSize:'clamp(28px,4vw,42px)', fontWeight:500, color:'#fff', lineHeight:1.2, letterSpacing:'-0.02em', marginBottom:'24px'}}>
+                                Secure your top-choice university<span className="ed-ember-period">.</span>
+                            </h2>
+                            <button onClick={() => navigate('/admissions')} className="ed-hero-primary-btn">
+                                Learn About Admissions
+                            </button>
                         </div>
                     </section>
                 </main>
