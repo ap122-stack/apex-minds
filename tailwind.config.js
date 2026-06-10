@@ -1,0 +1,53 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        ink: '#2B2B31',
+        plum: '#363146',
+        ember: '#ff6a1f',
+        graphite: '#171717',
+        cream: '#e4dfd9',
+        'fog-color': '#c7c7c7',
+        border: '#DCDCDF',
+        background: '#e4dfd9',
+        surface: '#e4dfd9',
+        primary: '#211c30',
+        'primary-container': '#363146',
+        secondary: '#5e5e64',
+        'secondary-container': '#e1dee6',
+        error: '#ba1a1a',
+        success: '#178F63',
+        'violet-panel': '#FAF8FF',
+        'blue-surface': '#DBE7FF',
+        'muted-text': '#77777F',
+        'inverse-primary': '#cbc2dd',
+        outline: '#79767d',
+        'outline-variant': '#cac5cd',
+      },
+      fontFamily: {
+        display: ["'Cabinet Grotesk'", "'Satoshi'", 'sans-serif'],
+        body: ["'Satoshi'", 'Arial', 'sans-serif'],
+      },
+      borderRadius: {
+        DEFAULT: '0.125rem',
+        lg: '0.25rem',
+        xl: '0.5rem',
+        full: '0.75rem',
+      },
+      fontSize: {
+        'price-display-mobile': ['48px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+        'price-display': ['60px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '600' }],
+        'body-sm': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+        'button-text': ['15px', { lineHeight: '1', fontWeight: '600' }],
+        'label-caps': ['12px', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '600' }],
+        'section-heading': ['28px', { lineHeight: '1.4', letterSpacing: '-0.02em', fontWeight: '500' }],
+        'card-title': ['22px', { lineHeight: '1.3', letterSpacing: '-0.02em', fontWeight: '500' }],
+      },
+    },
+  },
+  plugins: [],
+}
