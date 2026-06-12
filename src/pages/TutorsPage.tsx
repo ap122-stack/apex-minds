@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
 const TUTORS = [
-  { id: 'stem', name: 'Alex Chen', subjects: ['AP Calculus', 'AP Physics', 'SAT Math'], rate: 75, rating: 5.0, sessions: 28, bio: 'MIT grad specializing in STEM fundamentals and AP exam mastery.', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop' },
-  { id: 'humanities', name: 'Maya Johnson', subjects: ['AP English', 'College Essays', 'Writing'], rate: 70, rating: 5.0, sessions: 22, bio: 'Yale English grad with a 100% college admissions essay success rate.', photo: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=400&q=80&auto=format&fit=crop' },
-  { id: 'testprep', name: 'Jordan Park', subjects: ['SAT', 'ACT', 'PSAT'], rate: 80, rating: 5.0, sessions: 31, bio: 'Perfect SAT scorer helping students crack the 1500+ barrier.', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80&auto=format&fit=crop' },
-  { id: 'admissions', name: 'Dr. Sarah Lee', subjects: ['College Admissions', 'Common App', 'Interview Prep'], rate: 120, rating: 5.0, sessions: 19, bio: 'Former admissions officer from Stanford with insider knowledge.', photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop' },
+  { id: 'stem', name: 'Alex Chen', subjects: ['AP Calculus', 'AP Physics', 'SAT Math'], rating: 5.0, sessions: 28, bio: 'MIT grad specializing in STEM fundamentals and AP exam mastery.', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop' },
+  { id: 'humanities', name: 'Maya Johnson', subjects: ['AP English', 'College Essays', 'Writing'], rating: 5.0, sessions: 22, bio: 'Yale English grad with a 100% college admissions essay success rate.', photo: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=400&q=80&auto=format&fit=crop' },
+  { id: 'testprep', name: 'Jordan Park', subjects: ['SAT', 'ACT', 'PSAT'], rating: 5.0, sessions: 31, bio: 'Perfect SAT scorer helping students crack the 1500+ barrier.', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80&auto=format&fit=crop' },
+  { id: 'admissions', name: 'Dr. Sarah Lee', subjects: ['College Admissions', 'Common App', 'Interview Prep'], rating: 5.0, sessions: 19, bio: 'Former admissions officer from Stanford with insider knowledge.', photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop' },
 ]
 
 export default function TutorsPage() {
@@ -37,11 +37,6 @@ export default function TutorsPage() {
                   {tutor.subjects.map(s => (
                     <span key={s} style={{ padding: '4px 10px', borderRadius: '9999px', background: 'var(--apex-violet)', fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: 700, color: 'var(--apex-plum)', letterSpacing: '0.03em' }}>{s}</span>
                   ))}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 700, color: 'var(--apex-plum)' }}>
-                    ${tutor.rate}<span style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 400, color: 'var(--slate)' }}>/hr</span>
-                  </span>
                 </div>
                 <button onClick={() => navigate(`/tutors/${tutor.id}`)} className="ed-btn" style={{ width: '100%', justifyContent: 'center' }}>
                   View Profile →
