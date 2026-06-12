@@ -87,6 +87,45 @@ function PremiumCalendar({ onConfirm }: { onConfirm: (data: { slots: string[]; s
         </div>
       </div>
 
+      {/* Session date boxes */}
+      {sessionTarget > 0 && (
+        <div style={{ marginBottom: '24px' }}>
+          <div className="apex-cal-slots-title" style={{ marginBottom: '12px' }}>Select {sessionTarget} date{sessionTarget > 1 ? 's' : ''}</div>
+          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(sessionTarget, 4)}, 1fr)`, gap: '12px' } as React.CSSProperties}>
+            {Array.from({ length: sessionTarget }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: '16px',
+                  borderRadius: '12px',
+                  background: '#1a1a1a',
+                  color: '#fff',
+                  textAlign: 'center' as const,
+                  cursor: 'pointer',
+                  border: '2px solid #1a1a1a',
+                  transition: 'all 0.2s',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                } as React.CSSProperties}
+                onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+                  const target = e.currentTarget as HTMLDivElement
+                  target.style.borderColor = 'var(--apex-plum)'
+                  target.style.boxShadow = '0 4px 12px rgba(92,61,143,0.2)'
+                }}
+                onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                  const target = e.currentTarget as HTMLDivElement
+                  target.style.borderColor = '#1a1a1a'
+                  target.style.boxShadow = 'none'
+                }}
+              >
+                Session {i + 1}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Calendar */}
       <div className="apex-cal-header">
         <button className="apex-cal-nav-btn" onClick={() => { setViewDate(new Date(year, month - 1, 1)); setSelectedDay(null) }}>←</button>

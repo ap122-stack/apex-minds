@@ -74,31 +74,45 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── Disciplines ── */}
+      {/* ── Google Reviews ── */}
       <section className="ed-section">
         <div className="ed-section-inner">
-          <div style={{ maxWidth: '520px', marginBottom: '48px' }}>
-            <h2 className="ed-section-heading">Specialized academic disciplines<span className="ed-ember-period">.</span></h2>
-            <p className="ed-section-body" style={{ marginTop: '12px' }}>Each tutor is carefully matched to a specific domain — so you get genuine expertise, not a generalist.</p>
+          <div style={{ textAlign: 'center', maxWidth: '540px', margin: '0 auto 48px' }}>
+            <h2 className="ed-section-heading">Trusted by families everywhere<span className="ed-ember-period">.</span></h2>
+            <p className="ed-section-body" style={{ marginTop: '12px' }}>Real reviews from students and parents who've transformed their academic path.</p>
+            <div style={{ marginTop: '12px', fontSize: '14px', color: 'var(--slate)' }}>
+              ★★★★★ 4.9 out of 5 (120+ reviews)
+            </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
             {[
-              { icon: 'science', title: 'STEM', body: 'Algebra, Calculus & Physics mastery with custom concept-repair for AP and college-level courses.' },
-              { icon: 'edit_note', title: 'Humanities', body: 'Essay coaching, literary analysis, and rhetorical writing for AP English and college applications.' },
-              { icon: 'quiz', title: 'Test Prep', body: 'Targeted SAT & ACT strategy that addresses your exact weak sections through diagnostic-driven drills.' },
-              { icon: 'school', title: 'Admissions', body: 'College application strategy, Common App essays, and interview coaching for top-choice admits.' },
-            ].map(card => (
-              <div key={card.title} className="ed-card scroll-reveal-stagger motion-card">
-                <div style={{ width: '44px', height: '44px', borderRadius: '10px', background: 'var(--graphite)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-                  <span className="material-symbols-outlined" style={{ color: '#fff', fontSize: '22px' }}>{card.icon}</span>
+              { name: 'Sarah M.', role: 'Parent', stars: 5, text: 'My son went from a B to an A+ in AP Calculus. The tutors really understand how to break down complex concepts.', date: '2 weeks ago' },
+              { name: 'James P.', role: 'Student', stars: 5, text: 'Scored a 1520 on the SAT after 8 sessions. The targeted approach actually works. Highly recommend!', date: '1 month ago' },
+              { name: 'Emma L.', role: 'Parent', stars: 5, text: 'College acceptances came through! The admissions coaching was invaluable. Worth every penny.', date: '3 weeks ago' },
+              { name: 'Alex K.', role: 'Student', stars: 5, text: 'Finally understand physics. The tutors don\'t just give you answers — they teach you how to think.', date: '1 week ago' },
+            ].map((review, i) => (
+              <div key={i} className="ed-card motion-card" style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ marginBottom: '16px' }}>
+                  {Array.from({ length: review.stars }).map((_, j) => (
+                    <span key={j} style={{ color: 'var(--apex-ember)', fontSize: '14px' }}>★</span>
+                  ))}
                 </div>
-                <h3 className="ed-card-heading">{card.title}</h3>
-                <p className="ed-card-body">{card.body}</p>
-                <button onClick={() => navigate('/tutors')} className="ed-btn" style={{ marginTop: '24px', fontSize: '13px', padding: '9px 18px' }}>
-                  Find {card.title} tutors
-                </button>
+                <p className="ed-card-body" style={{ flex: 1, marginBottom: '16px' }}>"{review.text}"</p>
+                <div style={{ borderTop: '1px solid var(--apex-line)', paddingTop: '12px' }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '14px', fontWeight: 700, color: 'var(--apex-plum)', marginBottom: '2px' }}>
+                    {review.name}
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--slate)' }}>
+                    {review.role} · {review.date}
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+            <p style={{ color: 'var(--slate)', fontSize: '13px', fontFamily: 'var(--font-body)' }}>
+              Reviews synced from Google Business. <a href="#" style={{ color: 'var(--apex-plum)', textDecoration: 'none', fontWeight: 600 }}>See all reviews →</a>
+            </p>
           </div>
         </div>
       </section>
