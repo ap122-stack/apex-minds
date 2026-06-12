@@ -3,18 +3,22 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Mail, Lock } from 'lucide-react'
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function ModernSignIn() {
   const navigate = useNavigate()
+  const { signInWithEmail, signUpWithEmail } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(false)
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     if (!email || !password) {
       setError('Please enter both email and password.')
       return
@@ -23,8 +27,31 @@ export default function ModernSignIn() {
       setError('Please enter a valid email address.')
       return
     }
+
+    setLoading(true)
     setError('')
-    console.log('Sign in:', { email, password })
+
+    try {
+      if (isSignUp) {
+        const { error: signUpError } = await signUpWithEmail(email, password, email.split('@')[0], 'student')
+        if (signUpError) {
+          setError(signUpError.message || 'Sign up failed')
+        } else {
+          navigate('/')
+        }
+      } else {
+        const { error: signInError } = await signInWithEmail(email, password)
+        if (signInError) {
+          setError(signInError.message || 'Sign in failed')
+        } else {
+          navigate('/')
+        }
+      }
+    } catch (err: any) {
+      setError(err.message || 'Authentication failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -74,31 +101,20 @@ export default function ModernSignIn() {
 
         <button
           onClick={handleSignIn}
-          className="w-full bg-gradient-to-r from-apex-plum to-apex-plum-vivid text-white font-semibold py-2.5 rounded-lg hover:shadow-lg hover:shadow-apex-plum/30 transition mb-4"
+          disabled={loading}
+          className="w-full bg-gradient-to-r from-apex-plum to-apex-plum-vivid text-white font-semibold py-2.5 rounded-lg hover:shadow-lg hover:shadow-apex-plum/30 transition mb-4 disabled:opacity-50"
         >
-          Sign in
-        </button>
-
-        <button
-          onClick={() => navigate('/parent-login')}
-          className="w-full flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-2.5 rounded-lg transition mb-4"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          Continue with Google
+          {loading ? 'Loading...' : isSignUp ? 'Sign up' : 'Sign in'}
         </button>
 
         <div className="text-center text-sm">
           <span className="text-gray-400">
-            Don't have an account?{' '}
+            {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
             <button
-              onClick={() => navigate('/parent-login')}
+              onClick={() => setIsSignUp(!isSignUp)}
               className="text-white hover:underline font-medium"
             >
-              Sign up
+              {isSignUp ? 'Sign in' : 'Sign up'}
             </button>
           </span>
         </div>
